@@ -6,8 +6,10 @@ def intcode(file):
         for number in numbers:
             listProgram.append(int(number))
     # restore gravity assist program
+    print(listProgram,"\n")
     listProgram[1]=12
     listProgram[2]=2
+    print(listProgram,"\n")
     l = len(listProgram)-3
     i=0
     while i<l:
