@@ -17,8 +17,8 @@ def totalfuelcalculator(file):
     return neededFuel
     
 
-def fuelcalculator(fuel):
-    return math.floor(fuel/3)-2
+def fuelcalculator(mass):
+    return math.floor(mass/3)-2
     
 
 print(totalfuelcalculator('inputDay1.txt'))
