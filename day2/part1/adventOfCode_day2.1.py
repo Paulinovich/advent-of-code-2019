@@ -13,18 +13,17 @@ def intcode(file):
     l = len(listProgram)-3
     i=0
     while i<l:
-        item1 = listProgram[i+1]
-        item2 = listProgram[i+2]
+        posItem1 = listProgram[i+1]
+        posItem2 = listProgram[i+2]
+        where = listProgram[i+3]
         if listProgram[i]==1:
-            result = item1 + item2
-            listProgram[i+3] = result
+            result = listProgram[posItem1] + listProgram[posItem2]
+            listProgram[where] = result
         elif listProgram[i]==2:
-            result = item1 * item2
-            listProgram[i+3] = result
-        else:
-            print("something went wrong")
+            result = listProgram[posItem1] * listProgram[posItem2]
+            listProgram[where] = result
         i+=4
     
     return listProgram
-    
-print(intcode("inputDay2.txt"))
+
+print(intcode("inputDay2.txt")[0])
