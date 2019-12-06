@@ -15,10 +15,10 @@ def intcode(file):
     while i<l:
         item1 = listProgram[i+1]
         item2 = listProgram[i+2]
-        if i==1:
+        if listProgram[i]==1:
             result = item1 + item2
             listProgram[i+3] = result
-        elif i==2:
+        elif listProgram[i]==2:
             result = item1 * item2
             listProgram[i+3] = result
         else:
