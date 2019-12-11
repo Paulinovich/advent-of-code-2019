@@ -15,8 +15,8 @@ def mDistanceClosestIntersection(file):
 
 
 def saveInDictionary(circuits):
-    # horizontal ={horizontalIndex:{verticalIndex: amountWires}}
-    horizontal = {0:{0:0}}
+    # positions ={horizontalIndex:{verticalIndex: amountWires}}
+    positions = {0:{0:0}}
     for circuit in circuits:
         # start position set as current position 
         curHor = 0;
@@ -25,30 +25,32 @@ def saveInDictionary(circuits):
             direction = move[0]
             steps = int(move[1:])
             newVert = curVert
+            newHor = curHor
             if direction == 'R':
-                newHor = curHor + steps
+                newHor += steps
             elif direction == 'L':
-                newHor = curHor - steps
+                newHor += steps
             elif direction == 'U':
                 newVert += steps
             elif direction == 'D':
                 newVert -= steps
                 
+            # iterate over possible horizontal moves: the outsides dictionary's keys
             for i in range(min(curHor, newHor), max(curHor, newHor)+1):
-                if i in horizontal:
-                    for j in range(min(curVert, newVert), max(curVert, newVert)+1):
-                        if j in horizontal[i]:
-                           horizontal[i][j] += 1
+                # iterate over possible vertical moves: the inside dictionary's keys
+                for j in range(min(curVert, newVert), max(curVert, newVert)+1):
+                    if i in positions:
+                        if j in positions[i]:
+                            positions[i][j] += 1
                         else:
-                            horizontal[i][j] = 1
-                else:
-                    for j in range(min(curVert, newVert), max(curVert, newVert)):
-                        horizontal[i] = {j:1}
-                        
+                            positions[i][j] = 1
+                    else:
+                        positions[i] = {j:1}
+            # update current position        
             curHor = newHor
             curVert = newVert
             
-    return horizontal
+    return positions
 
     
 def getListsCircuits(file):
