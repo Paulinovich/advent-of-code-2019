@@ -1,17 +1,14 @@
 def mDistanceClosestIntersection(file):
    circuits = getListsCircuits(file)
    dictionaryLocations = saveInDictionary(circuits)
+   manhattanDistances=[]
    
    for i in dictionaryLocations:
        for j in dictionaryLocations[i]:
            if dictionaryLocations[i][j] > 1 and not (i==0 and j==0):
-               print(i, j)
-               # prints none, there's a bug. 
-               
-               # save (i,j)'s Manhatan Distance in a list. 
-               # give largest Manhatan Distance from list. 
-
-
+               manhattanDistances.append(manhattanDistance(i,j))
+               return (list(filter(None, manhattanDistances))).sort()[0]
+               #gets a NoneType error somewhere
 
 
 def saveInDictionary(circuits):
@@ -49,10 +46,13 @@ def saveInDictionary(circuits):
             # update current position        
             curHor = newHor
             curVert = newVert
-            
     return positions
 
+def manhattanDistance(i, j):
+    return abs(i) + abs(j)
     
+
+
 def getListsCircuits(file):
     fopen = open(file)
     lines = []
