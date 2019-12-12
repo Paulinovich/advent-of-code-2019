@@ -10,6 +10,7 @@ def mDistanceClosestIntersection(file):
    manhattanDistances.sort()
    return manhattanDistances[0]
 
+
 def saveInDictionary(circuits):
     # positions ={horizontalIndex:{verticalIndex: amountWires}}
     positions = {0:{0:0}}
@@ -63,5 +64,5 @@ def getListsCircuits(file):
         circuits.append(circuitSolo)
     return circuits
 
-
+print(saveInDictionary(getListsCircuits('inputDay3.txt')))
 print(mDistanceClosestIntersection('inputDay3.txt'))
