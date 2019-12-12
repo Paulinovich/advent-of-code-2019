@@ -1,21 +1,17 @@
 def possibilities(x,y):
-    pos=[]
+    pos=0
     for i in range(x,y+1):
-        digits=[int(j) for j in str(i)]
-        if neverDecrease(digits)==True and sameAdjDigits(digits)==True:
-            pos.append(i)
-    return len(pos)
+        if criteria(i)==True:
+            pos += 1
+    return pos
 
-def neverDecrease(digits):
+def criteria(i):
+    digits=[int(j) for j in str(i)]
+    pairSeen=False
     for i in range(0, len(digits)-1): 
         if digits[i] > digits[i+1]:
             return False
-    return True
-    
-def sameAdjDigits(digits):
-    pairSeen = False
-    for i in range(0, len(digits)-1): 
-        if digits[i] == digits[i+1]:
+        elif digits[i] == digits[i+1]:
             pairSeen = True
     return pairSeen
 
