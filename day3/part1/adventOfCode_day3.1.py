@@ -7,9 +7,8 @@ def mDistanceClosestIntersection(file):
        for j in dictionaryLocations[i]:
            if dictionaryLocations[i][j] > 1 and not (i==0 and j==0):
                manhattanDistances.append(manhattanDistance(i,j))
-               return (list(filter(None, manhattanDistances))).sort()[0]
-               #gets a NoneType error somewhere
-
+   manhattanDistances.sort()
+   return manhattanDistances[0]
 
 def saveInDictionary(circuits):
     # positions ={horizontalIndex:{verticalIndex: amountWires}}
@@ -51,7 +50,6 @@ def saveInDictionary(circuits):
 def manhattanDistance(i, j):
     return abs(i) + abs(j)
     
-
 
 def getListsCircuits(file):
     fopen = open(file)
