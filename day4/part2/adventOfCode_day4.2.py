@@ -1,42 +1,46 @@
 def possibilities(x,y):
     pos=0
     for i in range(x,y+1):
+        print(i)
+        print(pos)
         if criteria(i)==True:
-            pos += 1
+            pos+=1
     return pos
 
-def criteria(i):
-    digits=[int(j) for j in str(i)]
-    pairSeen=False
-    numberPair=[]
-    secondPairSeen=False
-    groupSeen=False
-    secondGroupSeen=False
-    for i in range(0, len(digits)-1): 
+
+def criteria(number):
+    digits=[int(j) for j in str(number)]
+    pairs=True
+    i=0
+    while i<4:
         if digits[i] > digits[i+1]:
+            print("out", number)
             return False
         elif digits[i] == digits[i+1]:
-            if pairSeen == True and digits[i] not in numberPair:
-                #mistake here: also true inside first group
-                secondPairSeen = True
-            if i<len(digits)-2 and digits[i] == digits[i+2]:
-                if groupSeen==True:
-                    secondGroupSeen=True
-                groupSeen = True
-            else: 
-                pairSeen = True
-                numberPair.append(digits[i])
-    return result(pairSeen, secondPairSeen, groupSeen, secondGroupSeen)
-
-def result(pair, secondPair, group, secondGroup):
-    if pair==True:
-        if secondPair==True and secondGroup == False:
-            return True
+            pairs+=1
+            # look for groups 
+            if i<4:
+                print(i)
+                for j in range(2, (6-i)):
+                    #blocks at 222223
+                    print(j)
+                    group=False
+                    if digits[i] < digits[(i+j)]:
+                        i+=j
+                    if digits[i] > digits[(i+j)]:
+                        return False
+                    else: 
+                        group=True
+                # undo added pair from line 17
+                if group==True:
+                    pairs-=1
+                    i+=j
         else:
-            if group == False:
-                return True
-    return False
+            i+=1
+            
+    return pairs>0
+                    
 
 
-print(possibilities(197487, 673251))
 # result is too low
+print(possibilities(197487, 673251))
