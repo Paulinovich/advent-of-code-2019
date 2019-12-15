@@ -2,13 +2,14 @@ def possibilities(x,y):
     pos=0
     for i in range(x,y+1):
         if criteria(i)==True:
+            print(i)
             pos+=1
     return pos
 
 
 def criteria(number):
     digits=[int(j) for j in str(number)]
-    pairs=True
+    pairs=0
     i=0
     while i<5:
         if digits[i] > digits[i+1]:
@@ -21,7 +22,7 @@ def criteria(number):
                     return False
                 elif digits[i] == digits[i+2]:
                     #3 seen: troup: undo pair
-                    pairs-=1
+                    pairs -= 1
                     if i<3:
                         if digits[i] > digits[i+3]:
                             return False
@@ -30,11 +31,11 @@ def criteria(number):
                             if i==0 and digits[i] < digits[i+4]:
                                 i+=5
                             else:
-                                return False
+                                return pairs>0
                         else:
                             i+=3
                     else: 
-                        return False
+                        return pairs>0
                 else: 
                     i+=2
             else: 
@@ -43,4 +44,4 @@ def criteria(number):
     return pairs>0
                 
 print(possibilities(197487, 673251))
-# returns 1455: not correct
+#returns 1101, not correct
