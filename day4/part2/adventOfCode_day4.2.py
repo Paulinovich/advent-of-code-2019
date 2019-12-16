@@ -29,7 +29,7 @@ def criteria(number):
                         # 4 seen: still chance if i==0
                         elif digits[i] == digits[i+3]:
                             if i==0 and digits[i] < digits[i+4]:
-                                i+=5
+                                i+=4
                             else:
                                 return pairs>0
                         else:
@@ -44,4 +44,4 @@ def criteria(number):
     return pairs>0
                 
 print(possibilities(197487, 673251))
-#returns 1101, not correct
+# result = 1126
