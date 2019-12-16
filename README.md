@@ -20,5 +20,5 @@ This is a collection of my solutions (and try-outs) for the [Advent of Code 2019
 |**Day 4**: [Secure Container](https://adventofcode.com/2019/day/4)|[⭐️](https://github.com/Paulinovich/advent-of-code-2019/blob/master/day4/part1/adventOfCode_day4.1.py)|[⭐️](https://github.com/Paulinovich/advent-of-code-2019/blob/master/day4/part2/adventOfCode_day4.2.py)|
 |**1**: The password of the fuel depot is forgotten, we only remember a few facts about the passwort: The number is between 197487 and 673251, contains a pair of equal adjacent digits, and the digits do not decrease from left to right. We should find the amount of possibilities.
 **2**: An Elf just remembered one more important detail: one pair of two adjacent matching digits is not part of a larger group of matching digits. We have to update the possibilities.|||
-|**Day 5**: [Sunny with a Chance of Asteroids](https://adventofcode.com/2019/day/5)|💫||
+|**Day 5**: [Sunny with a Chance of Asteroids](https://adventofcode.com/2019/day/5)|[💫](https://github.com/Paulinovich/advent-of-code-2019/blob/master/day5/part1/adventOfCode_day5.1.py)||
 ||||
