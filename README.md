@@ -1,6 +1,8 @@
 # advent of code 2019
 This is a collection of my solutions (and try-outs) for the [Advent of Code 2019](https://adventofcode.com) challenges in Python. 
 
+My focus now lies more on the problem solving, than creating fast, compact and scalable code. I'll make some effort on that in the next months and compare my methods to other solutions. At the moment I'm enjoying struggling through the puzzles too much to be bothered about optimisation. 
+
 ## What is Advent of Code?
 [Advent of Code](http://adventofcode.com) is a yearly advent calender of small programming puzzles for a variety of skill sets and skill levels that can be solved in any liked language, created by [Eric Wastl](https://twitter.com/ericwastl).
 
