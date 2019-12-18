@@ -1,11 +1,3 @@
-"""
-changes:
-    - program doesn't start with the opcode, thus search for first opcode as start index
-    - make sure to change str to int on the right spots
-    - deal with 99 opcode
-"""
-
-
 def intcode(file):
     program = saveInput(file)
     run(program)
@@ -27,15 +19,10 @@ def run(program):
     while program[index] != "99":
         instruction, nextIndexStep = addParaModes(program[index])
         block = program[index : index + nextIndexStep]
-        print(instruction)
         opcode = instruction[-2:]
-        print(opcode)
         parMode = instruction[:-2]
-        print(parMode)
         parameters = []
-        # find next instruction: jump amount parameters?
-        #block = program[index : (index + len(parMode))]
-        # saving values of parameters of instruction in a lists
+        # saving values of parameters of instruction in a lists, except where to store
         # parsing from right to left
         for i in range(-1, (-1-len(parMode)), -1):
             if parMode[i] == "0":
@@ -46,9 +33,11 @@ def run(program):
                 parameters.append(int(block[-i]))
             else:
                 print("Something went wrong")
+        # add last parameter as index: where to store:
+        parameters.append(int(block[-1]))
     
         # read and execute the opcode
-        savedInput = readOpcode(opcode, parameters, program, savedInput)
+        program, savedInput = readOpcode(opcode, parameters, program, savedInput)
         if savedInput != None:
             print(savedInput)
         
@@ -69,18 +58,16 @@ def addParaModes(instruction):
 def readOpcode(opcode, parameters, program, inp):
     if opcode == "01":
         result = parameters[0] + parameters[1]
-        # INDEX ERROR: List index out of range
-        program[parameters[1]] = str(result)
+        program[parameters[-1]] = str(result)
     elif opcode == "02":
-        result = parameters[0] + parameters[1]
-        program[parameters[1]] = str(result)
+        result = parameters[0] * parameters[1]
+        program[parameters[-1]] = str(result)
     elif opcode == "03": 
-        program[parameters[0]] = str(inp)
+        program[parameters[-1]] = str(inp)
     elif opcode == "04":
-        return str(parameters[0])
-    return None
+        return program, str(parameters[0])
+    return program, None
     
-
 
 print(intcode("input.txt"))
 
