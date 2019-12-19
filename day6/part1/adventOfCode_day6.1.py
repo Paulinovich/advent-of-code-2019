@@ -1,31 +1,29 @@
-'''
-1. store input in list
+"""
+New start after getting stuck with version using recursion on nested lists of dictionaries.
+I cheated a bit and found inspiration in the solition of Musical_Muze (https://pastebin.com/u/Musical_Muze)
+"""
 
-2. save all different object (key) and orbits (values) in a dictionary.
-
-3. while len(dict)!=1: 
-    3.1. go over all dictionaries in the list and check if it's value is a key in one of the other dictionaries.
-        3.1.1: yes: - make that value key in a new nested dictionary and append the orbitting dictionary as a value.
-                    - pop that copied dictionary out of the list
-        3.1.2: no: continue
-    3.2. repeat the same process with the values of the nested dictionaries.
-    3.3. and so on
-
-4. iterate over the whole nested dictionary and count 'how deep' every value is and add this numbers together.
-'''
-import copy
-
-def run(file):
-    listInput = saveInput(file)
-    dObj = dictObjects(listInput)
-    # can we asume there is one starter object or could there be more? 
-    #while len(lObj) != 1:
-    # how to get 'deeper' with every call on the function? 
-    dObj = restructure(dObj)
-    return(dObj)
-
+def findSumOrbits(file):
+    """
+    (string) -> int
+    
+    saves all usefull information from the file and counts the total orbit sum.
+    """
+    inp = saveInput(file)
+    orbits, relations = infoPlanets(inp)
+    
+    countAll = 0
+    for orbit in orbits:
+        countAll += countOrbits(orbit, relations)
+    return countAll
+    
 
 def saveInput(file):
+    """
+    (String) -> list
+    
+    returns a list of all string items in a textfile
+    """
     inp = []
     inputFile = open(file)
     for i in inputFile:
@@ -33,40 +31,48 @@ def saveInput(file):
     return inp
 
 
-def dictObjects(inp):
-    dictObjects = {}
+def infoPlanets(inp):
+    """
+    (list) -> set, set, list of lists
+    
+    returns all unique orbits, all unique centers and all the orbit relations
+    """
+    planets = set()
+    centers= set()
+    orbits = set()
+    relations = []
+    
     for i in inp:
         split = i.index(')')
-        key = i[:split]
-        orbit = i[split+1:]
-        if key not in dictObjects:
-            dictObjects[key] = [orbit]
-        else: 
-            dictObjects[key].append(orbit)
-    return dictObjects
+        center = i[:split]
+        orbit = i[(split+1):]
+        
+        planets.add(center)
+        planets.add(orbit)
+        centers.add(center)
+        orbits.add(orbit)
+        relations.append([center, orbit])
+        
+    # remove the start center planet
+    planets.remove(list(centers.difference(orbits))[0])
+    return orbits, relations
+    
 
+def countOrbits(orbit, relations):
+    """
+    (string, list of lists) -> int
+    
+    count all occurences of a planet and it's orbits
+    """
+    count = 0
+    for relation in relations:
+        # planet has orbits
+        if relation[0] == orbit:
+            nextOrbit = relation[1]
+            count += countOrbits(nextOrbit, relations)
+        elif relation[1] == orbit:
+            count += 1
+    return count
+    
 
-def restructure(dObj):
-    # keys in main dict dObj
-    # making copy of dictionary because we can't iterate over objects that change size
-    copyObj = copy.deepcopy(dObj)
-    for i in dObj:
-        # item in list of values of key
-        for j in dObj[i]:
-            if j in copyObj.keys(): 
-                # add dictionary of orbit to list of values
-                try: 
-                    copyObj[i].append({j : copyObj[j]})
-                # remove the duplicated value from list
-                    copyObj[i].remove(j)
-                # remove the copied key-value from the dictionary
-                    del copyObj[j]
-                except: 
-                    pass
-                
-    return copyObj
-                
-                
-                
-
-print(run("input.txt"))
+print(findSumOrbits("input.txt"))
